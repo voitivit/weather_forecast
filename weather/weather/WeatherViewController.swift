@@ -15,7 +15,8 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.addSubview(backgroundView)
+        view.sendSubviewToBack(backgroundView)
         loadWeather()
     }
     
@@ -23,6 +24,11 @@ class WeatherViewController: UIViewController {
         super.viewDidLayoutSubviews()
         setupConstraints()
     }
+    
+    lazy var backgroundView: UIImageView = {
+        let view = UIImageView(image: UIImage(named: "background"))
+        return view
+    }()
     
     lazy var stackView: UIStackView = {
         let view = UIStackView()
@@ -36,8 +42,8 @@ class WeatherViewController: UIViewController {
 
     lazy var nameCities: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.black
-        label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight(rawValue: 17))
+        label.textColor = UIColor.white
+        label.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight(rawValue: 17))
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -53,7 +59,7 @@ class WeatherViewController: UIViewController {
 
     lazy var date: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.black
+        label.textColor = UIColor.white
         label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight(rawValue: 17))
         label.textAlignment = .center
         label.highlightedTextColor = .blue
@@ -63,7 +69,7 @@ class WeatherViewController: UIViewController {
 
     lazy var temperatureLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.black
+        label.textColor = UIColor.green
         label.font = UIFont.systemFont(ofSize: 25, weight: UIFont.Weight(rawValue: 17))
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +78,7 @@ class WeatherViewController: UIViewController {
 
     lazy var temperatureMinMax: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.black
+        label.textColor = UIColor.white
         label.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight(rawValue: 10))
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -97,23 +103,23 @@ class WeatherViewController: UIViewController {
             
             weatherImage.topAnchor.constraint(equalTo: nameCities.bottomAnchor, constant: 70),
             
-            weatherImage.heightAnchor.constraint(equalToConstant: 120),
-            weatherImage.widthAnchor.constraint(equalToConstant: 120),
+            weatherImage.heightAnchor.constraint(equalToConstant: 180),
+            weatherImage.widthAnchor.constraint(equalToConstant: 180),
             
-            temperatureLabel.topAnchor.constraint(equalTo: weatherImage.bottomAnchor, constant: 50),
+            temperatureLabel.topAnchor.constraint(equalTo: weatherImage.bottomAnchor, constant: 60),
             
-            temperatureMinMax.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
+            temperatureMinMax.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -180),
             
         ])
     }
     
     private func setPlusButton() {
         let button = UIButton(type: .custom)
-        let buttonSize: CGFloat = 60
-        button.frame = CGRect(x: (view.bounds.width - buttonSize) / 2, y: view.bounds.height - buttonSize - 20, width: buttonSize, height: buttonSize)
+        let buttonSize: CGFloat = 90
+        button.frame = CGRect(x: (view.bounds.width - buttonSize) / 2, y: view.bounds.height - buttonSize - 60, width: buttonSize, height: buttonSize)
         button.backgroundColor = UIColor.systemBlue
         button.layer.cornerRadius = buttonSize / 2
-        button.setTitle("+", for: .normal)
+        button.setTitle("Добавить", for: .normal)
         button.addTarget(self, action: #selector(showAddUserAlert), for: .touchUpInside)
         
         view.addSubview(button)
